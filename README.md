@@ -1,9 +1,11 @@
 ![SUMBI LOGO](https://drive.google.com/uc?export=view&id=1OgyySKUQJtEJOES0Hm8WeQ-bhI3nccYI)
 
 # SUMBI-BACKEND
+
 This is the backend for open source project Sumbi 
 
 # Collaborative Effort
+
 Sumbi, a reputable non-governmental organization (NGO) in Peru, has been instrumental in advocating for the rights and welfare of children and their families through innovative educational and social projects. With a strong emphasis on collaborative efforts with families, communities, and both public and private institutions, Sumbi stands out for its multidisciplinary approach in urban and rural areas, contributing significantly to public policies related to child development and education.
 
 The open source project for Sumbi represents an exciting and crucial phase in the organization's journey towards enhancing its operational capabilities, particularly in managing accounts receivables and monitoring payments. This backend development is the first part of a two-part series aimed at bolstering Sumbi's financial management system. By improving these aspects, the organization will be better positioned to maintain a sustainable and effective operation, ensuring that its valuable resources are directed efficiently towards its noble cause.
@@ -28,7 +30,11 @@ Setup Instructions:
 6. See below database graph for a better idea on what this project is tring to implement.
 
 # Database Diagram
+
 ![Sumbi Open Source Backend ](https://drive.google.com/uc?export=view&id=1VYdUrLk5m1bDoCBHkuh7NQaw-PyNBPq9)
 
 7. If you dont have experience programming you can still help by documenting the progress of this project either in english or spanish, thanks!! =)
 
+# VSCODE CRUD actions
+
+![VsCode Project View CRUD ](https://drive.google.com/uc?export=view&id=1PrjPzUyO0XZKMQjRIGHOiZkW-lNMZUmT)
