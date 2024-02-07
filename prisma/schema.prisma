@@ -1,0 +1,242 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+
+
+}
+
+model Cliente {
+  codigoCliente             Int      @id @default(autoincrement())
+  nombresMadre              String
+  apellidoMaternoMadre      String
+  apellidoPaternoMadre      String
+  tipoIdentificacionMadre   String
+  nroIdentificacionMadre    String
+  direccionMadre            String
+  correoMadre               String
+  telefonoMadre             String
+  nombresPadre              String
+  apellidoPaternoPadre      String
+  apellidoMaternoPadre      String
+  tipoIdentificacionPadre   String
+  nroIdentificacionPadre    String
+  direccionPadre            String
+  correoPadre               String
+  telefonoPadre             String
+  responsableDelPago        String
+  nombreDelBanco            String
+  tipoDeCuenta              String
+  numeroCta                 String
+  ingresadoAlSistemaContable Boolean
+  fechaDePagoPreferencial   DateTime?
+  credito                   Boolean
+  alDiaConLosPagos          Boolean
+  deudaTotal                Float
+  fechaDeBloqueo            DateTime?
+  nota                      String?
+  hijo                     Hijo[]
+  pago                     Pago[]
+  notificaciones            Notificacion[]
+  notas                     Nota[]
+}
+
+model Hijo {
+  codigoHijo            Int      @id @default(autoincrement())
+  codigoEscala          Int?     // Assuming this is a reference to another table, nullable if not always present
+  codigoCliente         Int      // Foreign key
+  nombresHijo           String
+  apellidoPaternoHijo   String
+  apellidoMaternoHijo   String
+  tipoDeDocumento       String
+  nroDeDocumento        String
+  fechaDeMatricula      DateTime
+
+  salon                 String
+  nota                  String?
+  cliente               Cliente  @relation(fields: [codigoCliente], references: [codigoCliente])
+  pagos                     Pago[]
+  notas                 Nota[]
+}
+
+model Pago {
+  codigoPago           Int      @id @default(autoincrement())
+  codigoCliente        Int      // Foreign key
+  codigoHijo           Int?     // Foreign key, optional because a payment may not always be associated with a 'hijo'
+  rucEmpresa           String?
+  codigoClase          Int?
+  moneda               String
+  fechaDeProceso       DateTime
+  cuentaRecaudadora    String?
+  referencias          String?
+  fechaDeEmision       DateTime
+  fechaDeVencimiento   DateTime
+  concepto             String
+  valorMaximo          Float?
+  valorMinimo          Float?
+  descuento            Float?
+  importeDelPago       Float
+  montoDepositado      Float?
+  pagoConfirmado       Boolean
+  reciboEmitido        Boolean
+  nota                 String?
+  cliente              Cliente @relation(fields: [codigoCliente], references: [codigoCliente])
+  hijo                 Hijo?   @relation(fields: [codigoHijo], references: [codigoHijo])
+  depositos            Deposito[]
+  recibo               Recibo?
+  notificaciones       Notificacion[]
+  notas                Nota[]
+  conceptos            Concepto[]
+}
+
+
+
+model Deposito {
+  codigoDeposito       Int        @id @default(autoincrement())
+  codigoNotificacion   Int?       // Optional foreign key to a 'Notificacion' table
+  codigoPago           Int        // Foreign key to 'Pago' table
+  codigoCliente        Int        // Foreign key to 'Cliente' table
+  codigoHijo           Int?       // Optional foreign key to 'Hijo' table
+  importeDelOrigen     Float
+  importeDelDeposito   Float
+  importeMora          Float?
+  oficinaDePago        String?
+  tipoValor            String?
+  canalDeEntrada       String?
+  imagenDelVoucher     String?    // This could be a URL or a path to an image file
+  depositoValidado     Boolean
+  nota                 String?
+  pago                 Pago       @relation(fields: [codigoPago], references: [codigoPago])
+  notas Nota[]
+
+}
+
+
+model Recibo {
+  codigoRecibo         Int         @id @default(autoincrement())
+  codigoCliente        Int         // Foreign key to 'Cliente' table
+  codigoPago           Int      @unique   // Foreign key to 'Pago' table
+  codigoNotificacion   Int?        // Optional foreign key to 'Notificacion' table
+  fechaDeVencimiento   DateTime
+  fechaDeEmision       DateTime
+  nombreDelCliente     String
+  dni                  String
+  tipoDeMoneda         String
+  observacion          String?
+  cantidad             Int
+  unidadDeMedida       String
+  descripcion          String
+  valorUnitario        Float
+  descuento            Float?
+  importeDeVenta       Float
+  icbper               Float?      // Impuesto a los Bolsas Plásticas - may not be applicable for all receipts
+  opGravada            Float?      // Operaciones Gravadas
+  opExonerada          Float?      // Operaciones Exoneradas
+  opInafecta           Float?      // Operaciones Inafectas
+  isc                  Float?      // Impuesto Selectivo al Consumo
+  igv                  Float?      // Impuesto General a las Ventas
+  otrosCargos          Float?
+  otrosTributos        Float?
+  montoDeRedondeo      Float?
+  importeTotal         Float
+  nota                 String?
+  pago                 Pago       @relation(fields: [codigoPago], references: [codigoPago])
+  notas Nota[]
+}
+
+model Notificacion {
+  codigoNotificacion   Int      @id @default(autoincrement())
+  codigoCliente        Int      // Foreign key to 'Cliente' table
+  codigoPago           Int?     // Optional foreign key to 'Pago' tabl
+  fechaDeEmision       DateTime
+  emisorNotificado     String
+  fechaDeRecepcion     DateTime?
+  fechaDeRespuesta     DateTime?
+  concepto             String
+  mensaje              String
+  notaInterna          String?
+  cliente              Cliente  @relation(fields: [codigoCliente], references: [codigoCliente])
+  pago                 Pago?    @relation(fields: [codigoPago], references: [codigoPago])
+  seguimientos         Seguimiento[]
+  notas Nota[]
+}
+
+model Seguimiento {
+  codigoSeguimiento    Int         @id @default(autoincrement())
+  codigoNotificacion   Int         // Foreign key to 'Notificacion' table
+  codigoCliente        Int         // Foreign key to 'Cliente' table
+  codigoPago           Int?        // Optional foreign key to 'Pago' table
+  fechaDeEmision       DateTime
+  emisorNotificado     String
+  fechaDeRecepcion     DateTime?
+  fechaDeRespuesta     DateTime?
+  concepto             String
+  mensaje              String
+  notaInterna          String?
+  notificacion         Notificacion @relation(fields: [codigoNotificacion], references: [codigoNotificacion])
+notas Nota[]
+}
+
+model Concepto {
+  codigoConcepto       Int         @id @default(autoincrement())
+  codigoCliente        Int         // Foreign key to 'Cliente' table
+  codigoPago           Int?        // Optional foreign key to 'Pago' table
+  codigoNotificacion   Int?        // Optional foreign key to 'Notificacion' table
+  avisoDePago          String?
+  vencimientoDePago    DateTime?
+  recordatorio1        String?
+  recordatorio2        String?
+  recordatorio3        String?
+  avisoFinal           String?
+  recibo               String?
+  nota                 String?
+notas Nota[]
+  pago                 Pago?       @relation(fields: [codigoPago], references: [codigoPago])
+
+}
+
+
+
+model Escala {
+  codigoEscala      Int      @id @default(autoincrement())
+  codigoCliente     Int      // Foreign key to 'Cliente' table
+  A                 String?
+  B                 String?
+  C                 String?
+  D                 String?
+  exonerado         Boolean  // Assuming 'exonerado' is a boolean field (true/false)
+  nota              String?
+notas Nota[]
+}
+
+model Nota {
+  codigoNota          Int           @id @default(autoincrement())
+  codigoCliente       Int?          // Optional foreign key to 'Cliente' table
+  codigoHijo          Int?          // Optional foreign key to 'Hijo' table
+  codigoPago          Int?          // Optional foreign key to 'Pago' table
+  codigoDeposito      Int?          // Optional foreign key to 'Deposito' table
+  codigoRecibo        Int?          // Optional foreign key to 'Recibo' table
+  codigoNotificacion  Int?          // Optional foreign key to 'Notificacion' table
+  codigoSeguimiento   Int?          // Optional foreign key to 'Seguimiento' table
+  codigoConcepto      Int?          // Optional foreign key to 'Concepto' table
+  codigoEscala        Int?          // Optional foreign key to 'Escala' table
+  texto               String
+  cliente             Cliente?      @relation(fields: [codigoCliente], references: [codigoCliente])
+  hijo                Hijo?         @relation(fields: [codigoHijo], references: [codigoHijo])
+  pago                Pago?         @relation(fields: [codigoPago], references: [codigoPago])
+  deposito            Deposito?     @relation(fields: [codigoDeposito], references: [codigoDeposito])
+  recibo              Recibo?       @relation(fields: [codigoRecibo], references: [codigoRecibo])
+  notificacion        Notificacion? @relation(fields: [codigoNotificacion], references: [codigoNotificacion])
+  seguimiento         Seguimiento?  @relation(fields: [codigoSeguimiento], references: [codigoSeguimiento])
+  concepto            Concepto?     @relation(fields: [codigoConcepto], references: [codigoConcepto])
+  escala              Escala?       @relation(fields: [codigoEscala], references: [codigoEscala])
+
+}
+
