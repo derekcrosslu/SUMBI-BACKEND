@@ -8,25 +8,30 @@ import {
   Post,
   Put,
   Logger,
-  LoggerService
+  LoggerService,
+  ArgumentsHost,
+  Catch,
+  ParamData
 } from '@nestjs/common';
 import { ClienteService } from './cliente.sevice';
 import { Cliente } from '@prisma/client';
+import { logger } from './winston.config';
+
 
 @Controller('clientes')
 export class ClienteController {
   constructor(private readonly clienteService: ClienteService) {}
-
+  
   @Get()
   async getAllClientes() {
     return this.clienteService.getAllClientes();
   }
 
   @Get(':id')
-  async getTaskById(@Param('id') id: string) {
-    Logger.log("id: ", id);
+  async getClienteById(@Param('id') id: string) {
+    logger.log("id: ", id);
     const clientFound = await this.clienteService.getClienteById(Number(id));
-    if (!clientFound) throw new BadRequestException('Task does not exist');
+    if (!clientFound) throw new BadRequestException('Cliente does not exist');
     return clientFound;
   }
 
@@ -36,21 +41,21 @@ export class ClienteController {
     return this.clienteService.createCliente(data);
   }
 
-  // @Put(':id')
-  // async updateTask(@Param('id') id: string, @Body() data: Cliente) {
-  //   try {
-  //     return await this.taskService.updateTask(Number(id), data);
-  //   } catch (error) {
-  //     throw new BadRequestException('Task does not exist');
-  //   }
-  // }
+  @Put(':id')
+  async updateCliente(@Param('id') id: string, @Body() data: Cliente) {
+    try {
+      return await this.clienteService.updateCliente(Number(id), data);
+    } catch (error) {
+      throw new BadRequestException('Cliente does not exist');
+    }
+  }
 
-  // @Delete(':id')
-  // async deleteTask(@Param('id') id: string) {
-  //   try {
-  //     return await this.taskService.deleteTask(Number(id));
-  //   } catch (error) {
-  //     throw new BadRequestException('Task does not exist');
-  //   }
-  // }
+  @Delete(':id')
+  async deleteCliente(@Param('id') id: string) {
+    try {
+      return await this.clienteService.deleteCliente(Number(id));
+    } catch (error) {
+      throw new BadRequestException('Cliente does not exist');
+    }
+  }
 }
