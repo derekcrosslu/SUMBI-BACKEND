@@ -1,0 +1,33 @@
+-- AlterTable
+ALTER TABLE "Cliente" ALTER COLUMN "nombresMadre" DROP NOT NULL,
+ALTER COLUMN "apellidoMaternoMadre" DROP NOT NULL,
+ALTER COLUMN "apellidoPaternoMadre" DROP NOT NULL,
+ALTER COLUMN "tipoIdentificacionMadre" DROP NOT NULL,
+ALTER COLUMN "nroIdentificacionMadre" DROP NOT NULL,
+ALTER COLUMN "direccionMadre" DROP NOT NULL,
+ALTER COLUMN "correoMadre" DROP NOT NULL,
+ALTER COLUMN "telefonoMadre" DROP NOT NULL,
+ALTER COLUMN "nombresPadre" DROP NOT NULL,
+ALTER COLUMN "apellidoPaternoPadre" DROP NOT NULL,
+ALTER COLUMN "apellidoMaternoPadre" DROP NOT NULL,
+ALTER COLUMN "tipoIdentificacionPadre" DROP NOT NULL,
+ALTER COLUMN "nroIdentificacionPadre" DROP NOT NULL,
+ALTER COLUMN "direccionPadre" DROP NOT NULL,
+ALTER COLUMN "correoPadre" DROP NOT NULL,
+ALTER COLUMN "telefonoPadre" DROP NOT NULL,
+ALTER COLUMN "responsableDelPago" DROP NOT NULL,
+ALTER COLUMN "nombreDelBanco" DROP NOT NULL,
+ALTER COLUMN "tipoDeCuenta" DROP NOT NULL,
+ALTER COLUMN "numeroCta" DROP NOT NULL,
+ALTER COLUMN "ingresadoAlSistemaContable" DROP NOT NULL,
+ALTER COLUMN "credito" DROP NOT NULL,
+ALTER COLUMN "alDiaConLosPagos" DROP NOT NULL,
+ALTER COLUMN "deudaTotal" DROP NOT NULL;
+
+-- AlterTable
+ALTER TABLE "Hijo" ALTER COLUMN "nombresHijo" DROP NOT NULL,
+ALTER COLUMN "apellidoPaternoHijo" DROP NOT NULL,
+ALTER COLUMN "apellidoMaternoHijo" DROP NOT NULL,
+ALTER COLUMN "tipoDeDocumento" DROP NOT NULL,
+ALTER COLUMN "nroDeDocumento" DROP NOT NULL,
+ALTER COLUMN "fechaDeMatricula" DROP NOT NULL;

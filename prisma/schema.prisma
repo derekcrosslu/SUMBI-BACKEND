@@ -15,31 +15,31 @@ datasource db {
 
 model Cliente {
   codigoCliente             Int      @id @default(autoincrement())
-  nombresMadre              String
-  apellidoMaternoMadre      String
-  apellidoPaternoMadre      String
-  tipoIdentificacionMadre   String
-  nroIdentificacionMadre    String
-  direccionMadre            String
-  correoMadre               String
-  telefonoMadre             String
-  nombresPadre              String
-  apellidoPaternoPadre      String
-  apellidoMaternoPadre      String
-  tipoIdentificacionPadre   String
-  nroIdentificacionPadre    String
-  direccionPadre            String
-  correoPadre               String
-  telefonoPadre             String
-  responsableDelPago        String
-  nombreDelBanco            String
-  tipoDeCuenta              String
-  numeroCta                 String
-  ingresadoAlSistemaContable Boolean
+  nombresMadre              String?
+  apellidoMaternoMadre      String?
+  apellidoPaternoMadre      String?
+  tipoIdentificacionMadre   String?
+  nroIdentificacionMadre    String?
+  direccionMadre            String?
+  correoMadre               String?
+  telefonoMadre             String?
+  nombresPadre              String?
+  apellidoPaternoPadre      String?
+  apellidoMaternoPadre      String?
+  tipoIdentificacionPadre   String?
+  nroIdentificacionPadre    String?
+  direccionPadre            String?
+  correoPadre               String?
+  telefonoPadre             String?
+  responsableDelPago        String?
+  nombreDelBanco            String?
+  tipoDeCuenta              String?
+  numeroCta                 String?
+  ingresadoAlSistemaContable Boolean?
   fechaDePagoPreferencial   DateTime?
-  credito                   Boolean
-  alDiaConLosPagos          Boolean
-  deudaTotal                Float
+  credito                   Boolean?
+  alDiaConLosPagos          Boolean?
+  deudaTotal                Float?
   fechaDeBloqueo            DateTime?
   nota                      String?
   hijo                     Hijo[]
@@ -52,12 +52,12 @@ model Hijo {
   codigoHijo            Int      @id @default(autoincrement())
   codigoEscala          Int?     // Assuming this is a reference to another table, nullable if not always present
   codigoCliente         Int      // Foreign key
-  nombresHijo           String
-  apellidoPaternoHijo   String
-  apellidoMaternoHijo   String
-  tipoDeDocumento       String
-  nroDeDocumento        String
-  fechaDeMatricula      DateTime
+  nombresHijo           String?
+  apellidoPaternoHijo   String?
+  apellidoMaternoHijo   String?
+  tipoDeDocumento       String?
+  nroDeDocumento        String?
+  fechaDeMatricula      DateTime?
 
   salon                 String
   nota                  String?

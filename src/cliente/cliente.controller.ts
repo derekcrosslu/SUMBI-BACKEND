@@ -7,31 +7,34 @@ import {
   Param,
   Post,
   Put,
+  Logger,
+  LoggerService
 } from '@nestjs/common';
-import { TaskService } from './task.sevice';
+import { ClienteService } from './cliente.sevice';
 import { Cliente } from '@prisma/client';
 
 @Controller('clientes')
-export class TaskController {
-  constructor(private readonly taskService: TaskService) {}
+export class ClienteController {
+  constructor(private readonly clienteService: ClienteService) {}
 
   @Get()
-  async getAllTasks() {
-    return this.taskService.getAllTasks();
+  async getAllClientes() {
+    return this.clienteService.getAllClientes();
   }
 
-  // @Get(':id')
-  // async getTaskById(@Param('id') id: string) {
-  //   const taskFound = await this.taskService.getTaskById(Number(id));
-  //   if (!taskFound) throw new BadRequestException('Task does not exist');
-  //   return taskFound;
-  // }
+  @Get(':id')
+  async getTaskById(@Param('id') id: string) {
+    Logger.log("id: ", id);
+    const clientFound = await this.clienteService.getClienteById(Number(id));
+    if (!clientFound) throw new BadRequestException('Task does not exist');
+    return clientFound;
+  }
 
-  // @Post()
-  // async createTask(@Body() data: Cliente) {
-  //   console.log("data: ", data);
-  //   return this.taskService.createTask(data);
-  // }
+  @Post()
+  async createCliente(@Body() data: Cliente) {
+    console.log("data: ", data);
+    return this.clienteService.createCliente(data);
+  }
 
   // @Put(':id')
   // async updateTask(@Param('id') id: string, @Body() data: Cliente) {

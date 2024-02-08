@@ -3,26 +3,27 @@ import { PrismaService } from '../prisma/prisma.service';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class TaskService {
+export class ClienteService {
   constructor(private prisma: PrismaService) {}
 
-  async getAllTasks(): Promise<Cliente[]> {
+  async getAllClientes(): Promise<Cliente[]> {
     return this.prisma.cliente.findMany();
   }
 
-  // async getTaskById(id: number): Promise<Task> {
-  //   return this.prisma.task.findUnique({
-  //     where: {
-  //       id: id,
-  //     },
-  //   });
-  // }
+  async getClienteById(id: number): Promise<Cliente> {
+    console.log("id: ", id);
+    return this.prisma.cliente.findUnique({
+      where: {
+        codigoCliente: id,
+      },
+    });
+  }
 
-  // async createTask(data: Cliente): Promise<Cliente> {
-  //   return this.prisma.task.create({
-  //     data,
-  //   });
-  // }
+  async createCliente(data: Cliente): Promise<Cliente> {
+    return this.prisma.cliente.create({
+      data,
+    });
+  }
 
   // async updateTask(id: number, data: Cliente): Promise<Cliente> {
   //   return this.prisma.task.update({
