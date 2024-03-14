@@ -18,6 +18,15 @@ export class ClienteService {
       where: {
         codigoCliente: id,
       },
+      
+      include: {
+        hijos: true,
+        pago: {
+          include: {
+            depositos: true,
+          },
+        },
+      }
     });
   }
 

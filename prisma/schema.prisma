@@ -36,13 +36,13 @@ model Cliente {
   deudaTotal                 Float?
   fechaDeBloqueo             DateTime?
   nota                       String?
-  hijo                       Hijo[]
+  hijos                      Hijos[]
   notas                      Nota[]
   notificaciones             Notificacion[]
   pago                       Pago[]
 }
 
-model Hijo {
+model Hijos {
   codigoHijo          Int       @id @default(autoincrement())
   codigoEscala        Int?
   codigoCliente       Int
@@ -85,7 +85,7 @@ model Pago {
   notas              Nota[]
   notificaciones     Notificacion[]
   cliente            Cliente?       @relation(fields: [codigoCliente], references: [codigoCliente], onDelete: Restrict)
-  hijo               Hijo?          @relation(fields: [codigoHijo], references: [codigoHijo])
+  hijos              Hijos?         @relation(fields: [codigoHijo], references: [codigoHijo])
   recibo             Recibo?
 }
 
@@ -218,7 +218,7 @@ model Nota {
   concepto           Concepto?     @relation(fields: [codigoConcepto], references: [codigoConcepto])
   deposito           Deposito?     @relation(fields: [codigoDeposito], references: [codigoDeposito])
   escala             Escala?       @relation(fields: [codigoEscala], references: [codigoEscala])
-  hijo               Hijo?         @relation(fields: [codigoHijo], references: [codigoHijo])
+  hijos              Hijos?        @relation(fields: [codigoHijo], references: [codigoHijo])
   notificacion       Notificacion? @relation(fields: [codigoNotificacion], references: [codigoNotificacion])
   pago               Pago?         @relation(fields: [codigoPago], references: [codigoPago])
   recibo             Recibo?       @relation(fields: [codigoRecibo], references: [codigoRecibo])
