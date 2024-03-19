@@ -6,6 +6,7 @@ import {
   Get,
   Param,
   Post,
+  Patch,
   Put,
   Logger,
   LoggerService,
@@ -41,7 +42,7 @@ export class ClienteController {
     return this.clienteService.createCliente(data);
   }
 
-  @Put(':id')
+  @Patch(':id')
   async updateCliente(@Param('id') id: string, @Body() data: Cliente) {
     try {
       return await this.clienteService.updateCliente(Number(id), data);
@@ -52,6 +53,7 @@ export class ClienteController {
 
   @Delete(':id')
   async deleteCliente(@Param('id') id: string) {
+    console.log("id: ", id);
     try {
       return await this.clienteService.deleteCliente(Number(id));
     } catch (error) {

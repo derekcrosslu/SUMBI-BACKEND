@@ -18,7 +18,7 @@ import { Notificacion } from '@prisma/client';
 import { logger } from './winston.config';
 
 
-@Controller('Notificacions')
+@Controller('notificacions')
 export class NotificacionController {
   constructor(private readonly notificacionService: NotificacionService) {}
   

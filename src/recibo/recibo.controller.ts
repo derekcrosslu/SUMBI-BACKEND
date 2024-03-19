@@ -18,7 +18,7 @@ import { Recibo } from '@prisma/client';
 import { logger } from './winston.config';
 
 
-@Controller('Recibos')
+@Controller('recibos')
 export class ReciboController {
   constructor(private readonly reciboService: ReciboService) {}
   

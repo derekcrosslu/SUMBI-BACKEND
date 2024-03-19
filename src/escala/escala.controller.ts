@@ -18,7 +18,7 @@ import { Escala } from '@prisma/client';
 import { logger } from './winston.config';
 
 
-@Controller('Escalas')
+@Controller('escalas')
 export class EscalaController {
   constructor(private readonly escalaService: EscalaService) {}
   

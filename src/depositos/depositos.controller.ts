@@ -19,7 +19,7 @@ import { Deposito } from '@prisma/client';
 // import { logger } from './winston.config';
 // 
 
-@Controller('Depositos')
+@Controller('depositos')
 export class DepositosController {
   constructor(private readonly depositoService: DepositosService) {}
   

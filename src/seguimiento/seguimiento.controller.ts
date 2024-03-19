@@ -18,7 +18,7 @@ import { Seguimiento } from '@prisma/client';
 import { logger } from './winston.config';
 
 
-@Controller('Seguimientos')
+@Controller('seguimientos')
 export class SeguimientoController {
   constructor(private readonly SeguimientoService: SeguimientoService) {}
   

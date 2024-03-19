@@ -18,21 +18,41 @@ export class ClienteService {
       where: {
         codigoCliente: id,
       },
-      
       include: {
-        hijos: true,
+        notas: true,
+        hijos: {
+          include: {
+            notas: true,
+          },
+        },
         pago: {
           include: {
             depositos: true,
-          },
+            recibo: true,
+            notas: true,
+            notificaciones: {
+              include: {
+                seguimientos: true,
+                notas: true,
+              },
+            }
+          }
         },
-      }
+      },
     });
   }
 
   async createCliente(data: Cliente): Promise<Cliente> {
     return this.prisma.cliente.create({
-      data,
+      data: {
+        ...data,
+        // notas: {
+        //   create: {
+        //     // codigoCliente: data.codigoCliente,
+        //     texto: data.nota,
+        //   }
+        // }
+      }
     });
   }
 

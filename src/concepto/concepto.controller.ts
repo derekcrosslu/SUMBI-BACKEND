@@ -18,7 +18,7 @@ import { Concepto } from '@prisma/client';
 import { logger } from './winston.config';
 
 
-@Controller('Conceptos')
+@Controller('conceptos')
 export class ConceptoController {
   constructor(private readonly ConceptoService: ConceptoService) {}
   

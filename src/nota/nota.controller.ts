@@ -18,7 +18,7 @@ import { Nota } from '@prisma/client';
 import { logger } from './winston.config';
 
 
-@Controller('Notas')
+@Controller('notas')
 export class NotaController {
   constructor(private readonly NotaService: NotaService) {}
   
